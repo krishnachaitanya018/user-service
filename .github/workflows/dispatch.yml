@@ -1,0 +1,24 @@
+name: Dispatch to Orchestration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send dispatch event to orchestration repo
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PAT_FOR_ORCHESTRATION }}
+          repository: your-org/infra-orchestration
+          event-type: microservice-updated
+          client-payload: |
+            {
+              "service": "user-service",
+              "commit": "${{ github.sha }}",
+              "repo": "${{ github.repository }}"
+            }
