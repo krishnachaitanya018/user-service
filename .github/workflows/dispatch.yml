@@ -2,17 +2,19 @@ name: Dispatch to Orchestration
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   dispatch:
     runs-on: ubuntu-latest
+
     steps:
       - name: Send dispatch event to orchestration repo
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PAT_FOR_ORCHESTRATION }}
-          repository: krishnachaitanya018/microservices-cicd-demo
+          repository: krishnachaitanya018/infra-orchestration
           event-type: microservice-updated
           client-payload: |
             {
