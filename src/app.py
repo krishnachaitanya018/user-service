@@ -1,1 +1,1 @@
-print("User Service Running in V2")
+print("User Service Running")
